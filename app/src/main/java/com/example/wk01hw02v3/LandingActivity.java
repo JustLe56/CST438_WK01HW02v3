@@ -29,10 +29,10 @@ public class LandingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final int USERID = intent.getIntExtra("userID",0);
 
-        TextView welcomeMsg=(TextView)findViewById(R.id.welcomeMsg);
+        //TextView welcomeMsg=(TextView)findViewById(R.id.welcomeMsg);
         postResult=(TextView)findViewById(R.id.postResult);
 
-        welcomeMsg.setText("Welcome " + USERID);
+        //welcomeMsg.setText("Welcome " + USERID);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com/")
