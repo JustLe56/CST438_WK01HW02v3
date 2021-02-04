@@ -27,8 +27,6 @@ public class LoginActivity2 extends AppCompatActivity{
         userList.add(new User(1,"user1","password"));
         userList.add(new User(2,"user2","password"));
         userList.add(new User(3,"user3","password"));
-
-
     }
 
     private void wireupDisplay(){
