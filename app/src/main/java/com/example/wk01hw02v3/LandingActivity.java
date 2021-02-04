@@ -2,6 +2,7 @@ package com.example.wk01hw02v3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -77,5 +78,10 @@ public class LandingActivity extends AppCompatActivity {
                 postResult.setText(t.getMessage());
             }
         });
+    }
+    public static Intent intentFactory(Context context){
+        Intent intent = new Intent(context, LandingActivity.class);
+
+        return intent;
     }
 }

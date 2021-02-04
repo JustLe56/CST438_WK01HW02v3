@@ -44,14 +44,15 @@ public class LoginActivity2 extends AppCompatActivity{
                 User possibleUser = validateUser(userList,mUsername);
                 if (possibleUser != null && validatePassword(possibleUser,mPassword)){
                     Toast.makeText(LoginActivity2.this, "Welcome, " +possibleUser.getUsername() , Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),LandingActivity.class); //user has to log in
+//                    Intent intent = new Intent(getApplicationContext(),LandingActivity.class); //user has to log in
+//                    intent.putExtra("userID",possibleUser.getUserID());
+                    Intent intent = LandingActivity.intentFactory(getApplicationContext());
                     intent.putExtra("userID",possibleUser.getUserID());
                     startActivity(intent);
                 }
                 else if (possibleUser == null){
                     mUsernameField.requestFocus();
                     mUsernameField.setError("Invalid user");
-                    //toastMaker("Invalid username or password.");
                 }
                 else{
                     mPasswordField.requestFocus();
