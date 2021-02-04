@@ -43,15 +43,21 @@ public class LoginActivity2 extends AppCompatActivity{
             public void onClick(View v) {
                 //Toast.makeText(LoginActivity2.this, "Click"  , Toast.LENGTH_SHORT).show();
                 getValuesFromDisplay();
-                User validUser = validatePassword(userList,mUsername,mPassword);
-                if (validUser != null){
-                    Toast.makeText(LoginActivity2.this, "Welcome, " +validUser.getUsername() , Toast.LENGTH_SHORT).show();
+                User possibleUser = validateUser(userList,mUsername);
+                if (possibleUser != null && validatePassword(possibleUser,mPassword)){
+                    Toast.makeText(LoginActivity2.this, "Welcome, " +possibleUser.getUsername() , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),LandingActivity.class); //user has to log in
-                    intent.putExtra("userID",validUser.getUserID());
+                    intent.putExtra("userID",possibleUser.getUserID());
                     startActivity(intent);
                 }
+                else if (possibleUser == null){
+                    mUsernameField.requestFocus();
+                    mUsernameField.setError("Invalid user");
+                    //toastMaker("Invalid username or password.");
+                }
                 else{
-                    toastMaker("Invalid username or password.");
+                    mPasswordField.requestFocus();
+                    mPasswordField.setError("Invalid password");
                 }
             }
         });
@@ -62,18 +68,23 @@ public class LoginActivity2 extends AppCompatActivity{
         mPassword = mPasswordField.getText().toString();
     }
 
-    public static User validatePassword(ArrayList<User> users,String user, String pass){
+    public static User validateUser(ArrayList<User> users,String username){
         for(User each: users){
-            if (each.getUsername().equals(user)){ //found matching username
-                if(each.getPassword().equals(pass)){
-                    return each;
-                }
-                else{
-                    return null;
-                }
+            if (each.getUsername().equals(username)){ //found matching username
+                return each;
             }
         }
         return null;
+    }
+
+    public static boolean validatePassword(User user, String pass){
+        if (user == null){
+            return false;
+        }
+        if(user.getPassword().equals(pass)){
+            return true;
+        }
+        return false;
     }
 
     public void toastMaker(String message){

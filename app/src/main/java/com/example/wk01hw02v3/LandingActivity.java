@@ -28,7 +28,6 @@ public class LandingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int USERID = intent.getIntExtra("userID",0);
-        //hello234
         //TextView welcomeMsg=(TextView)findViewById(R.id.welcomeMsg);
         postResult=(TextView)findViewById(R.id.postResult);
 
