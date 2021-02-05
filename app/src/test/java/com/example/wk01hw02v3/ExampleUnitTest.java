@@ -1,9 +1,17 @@
 package com.example.wk01hw02v3;
 
+import android.content.Context;
+import android.content.Intent;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockedConstruction;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 
 import static org.junit.Assert.*;
 
@@ -12,6 +20,8 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+@RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
 
     private ArrayList<User> generateUserList(){
@@ -76,12 +86,19 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void validation_invalidPasswordCheck()
-    {
+    public void validation_invalidPasswordCheck() {
         ArrayList<User> userList = generateUserList();
 
         User testValidUser = generateUser(userList);
 
         assertFalse(LoginActivity2.validatePassword(testValidUser,""));
+    }
+
+    @Mock
+    Context mockContext;
+
+    @Test
+    public void intent_TestIntent(){
+        assertNotNull(LandingActivity.intentFactory(mockContext));
     }
 }

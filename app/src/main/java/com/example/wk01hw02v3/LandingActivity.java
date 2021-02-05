@@ -81,7 +81,6 @@ public class LandingActivity extends AppCompatActivity {
     }
     public static Intent intentFactory(Context context){
         Intent intent = new Intent(context, LandingActivity.class);
-
         return intent;
     }
 }
