@@ -28,28 +28,24 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
 
         Intent intent = getIntent();
-        final int USERID = intent.getIntExtra("userID",0);
-        //TextView welcomeMsg=(TextView)findViewById(R.id.welcomeMsg);
+        final int USER_ID = intent.getIntExtra("userID",0);
         postResult=(TextView)findViewById(R.id.postResult);
-
-        //welcomeMsg.setText("Welcome " + USERID);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
-
-        createPosts(getCall(USERID));
+        createPosts(getCall(USER_ID));
     }
 
+    //get the call from json api
     public Call getCall(int givenUserID){
         Call<List<Post>> call = jsonPlaceHolderApi.getPosts(givenUserID);
         return call;
     }
-
-    public void createPosts(Call givenCall)
-    {
+    //append posts to textview
+    public void createPosts(Call givenCall) {
         givenCall.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
@@ -58,9 +54,8 @@ public class LandingActivity extends AppCompatActivity {
                     postResult.setText("Code: " +response.code());
                     return;
                 }
-
+                //valid call and response
                 List<Post> posts = response.body();
-
                 for (Post post: posts){
                     String content = "";
                     content += "Post ID: " + post.getPostID() + "\n";
@@ -74,7 +69,7 @@ public class LandingActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                //failure; typo in call etc
+                //failure; typo in call to api, etc
                 postResult.setText(t.getMessage());
             }
         });

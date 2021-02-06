@@ -29,6 +29,7 @@ public class LoginActivity2 extends AppCompatActivity{
         userList.add(new User(3,"user3","password"));
     }
 
+    //connect view to methods
     private void wireupDisplay(){
         mUsernameField = findViewById(R.id.usernameInput);
         mPasswordField = findViewById(R.id.passwordInput);
@@ -39,22 +40,23 @@ public class LoginActivity2 extends AppCompatActivity{
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(LoginActivity2.this, "Click"  , Toast.LENGTH_SHORT).show();
                 getValuesFromDisplay();
+                //check if matching username present in arrayList
                 User possibleUser = validateUser(userList,mUsername);
                 if (possibleUser != null && validatePassword(possibleUser,mPassword)){
-                    Toast.makeText(LoginActivity2.this, "Welcome, " +possibleUser.getUsername() , Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getApplicationContext(),LandingActivity.class); //user has to log in
-//                    intent.putExtra("userID",possibleUser.getUserID());
+                    //Successful login
+                    toastMaker("Welcome " + possibleUser.getUsername());
                     Intent intent = LandingActivity.intentFactory(getApplicationContext());
                     intent.putExtra("userID",possibleUser.getUserID());
                     startActivity(intent);
                 }
                 else if (possibleUser == null){
+                    //No matching user was found
                     mUsernameField.requestFocus();
                     mUsernameField.setError("Invalid user");
                 }
                 else{
+                    //Matching user was found but password did not match
                     mPasswordField.requestFocus();
                     mPasswordField.setError("Invalid password");
                 }
@@ -69,7 +71,8 @@ public class LoginActivity2 extends AppCompatActivity{
 
     public static User validateUser(ArrayList<User> users,String username){
         for(User each: users){
-            if (each.getUsername().equals(username)){ //found matching username
+            if (each.getUsername().equals(username)){
+                //found matching username
                 return each;
             }
         }
@@ -78,6 +81,7 @@ public class LoginActivity2 extends AppCompatActivity{
 
     public static boolean validatePassword(User user, String pass){
         if (user == null){
+            //No user found to check password
             return false;
         }
         if(user.getPassword().equals(pass)){

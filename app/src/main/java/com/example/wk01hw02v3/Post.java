@@ -2,6 +2,8 @@ package com.example.wk01hw02v3;
 
 import com.google.gson.annotations.SerializedName;
 
+
+//Object for each post given by API
 public class Post {
     @SerializedName("userId")
     private int userID;
